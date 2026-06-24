@@ -1,0 +1,31 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0F0B08;
+}
+
+::selection {
+  background: rgba(201, 151, 58, 0.25);
+  color: #F2EAD8;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #4A3B2A;
+  font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
