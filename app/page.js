@@ -76,18 +76,25 @@ function Nav() {
         transition: 'all 0.5s ease',
       }}>
         <div style={{
-          maxWidth: 1120, margin: '0 auto', height: 70,
+          maxWidth: 1120, margin: '0 auto', height: 88,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
-          <a href="#" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-            <span style={{
-              fontFamily: "'Fraunces', serif", fontWeight: 900,
-              fontSize: 19, color: C.text, letterSpacing: '-0.02em',
-            }}>Atlas Ethiopia</span>
-            <span style={{
-              fontFamily: "'Syne', sans-serif", fontSize: 9, fontWeight: 700,
-              letterSpacing: '0.22em', textTransform: 'uppercase', color: C.gold, marginTop: 2,
-            }}>Digital Studio</span>
+          <a href="#" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <img
+              src="/logo.png"
+              alt="Atlas Ethiopia"
+              style={{ height: 72, width: 'auto', objectFit: 'contain', display: 'block' }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+              <span style={{
+                fontFamily: "'Fraunces', serif", fontWeight: 900,
+                fontSize: 19, color: C.text, letterSpacing: '-0.02em',
+              }}>Atlas Ethiopia</span>
+              <span style={{
+                fontFamily: "'Syne', sans-serif", fontSize: 9, fontWeight: 700,
+                letterSpacing: '0.22em', textTransform: 'uppercase', color: C.gold, marginTop: 3,
+              }}>Digital Studio</span>
+            </div>
           </a>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 40 }} className="ae-desklinks">
@@ -169,13 +176,18 @@ function Hero() {
       display: 'flex', alignItems: 'center',
       padding: '120px 2.5rem 80px', overflow: 'hidden',
     }}>
-      <div aria-hidden="true" style={{
-        position: 'absolute', right: '-2%', top: '50%',
-        transform: 'translateY(-50%)',
-        fontFamily: 'serif', fontSize: 'clamp(320px, 45vw, 580px)',
-        color: 'rgba(201,151,58,0.04)', lineHeight: 1,
-        userSelect: 'none', pointerEvents: 'none', fontWeight: 900,
-      }}>ቦ</div>
+      <img
+        src="/logo.png"
+        aria-hidden="true"
+        alt=""
+        style={{
+          position: 'absolute', right: '-6%', bottom: 0,
+          height: '90%', width: 'auto', objectFit: 'contain',
+          opacity: 0.13,
+          userSelect: 'none', pointerEvents: 'none',
+          mixBlendMode: 'luminosity',
+        }}
+      />
 
       <div style={{ maxWidth: 1120, margin: '0 auto', width: '100%', position: 'relative' }}>
         <div style={{
@@ -337,12 +349,13 @@ function Services() {
           border: `1px solid ${C.border}`, borderRadius: 8, overflow: 'hidden',
         }} className="ae-svcgrid">
           {SERVICES.map((s, i) => (
-            <Fade key={s.n} delay={i * 0.07}>
+            <Fade key={s.n} delay={i * 0.07} style={{ display: 'flex' }}>
               <div style={{
                 background: C.card, padding: '44px 40px',
                 borderRight: i % 2 === 0 ? `1px solid ${C.border}` : 'none',
                 borderBottom: i < 2 ? `1px solid ${C.border}` : 'none',
                 transition: 'background 0.35s', cursor: 'default',
+                width: '100%', display: 'flex', flexDirection: 'column',
               }}
               onMouseEnter={e => e.currentTarget.style.background = C.surface}
               onMouseLeave={e => e.currentTarget.style.background = C.card}
@@ -360,6 +373,7 @@ function Services() {
                 <p style={{
                   fontFamily: "'Lora', serif", fontSize: '0.95rem',
                   color: C.muted, lineHeight: 1.8, margin: 0,
+                  marginTop: 'auto',
                 }}>{s.body}</p>
               </div>
             </Fade>
@@ -802,15 +816,22 @@ function Footer() {
       background: C.bg, borderTop: `1px solid ${C.border}`,
       padding: '44px 2.5rem', position: 'relative', overflow: 'hidden',
     }}>
-      <div aria-hidden="true" style={{
-        position: 'absolute', right: '2rem', top: '50%', transform: 'translateY(-50%)',
-        fontFamily: 'serif', fontSize: 120, color: C.gold, opacity: 0.04,
-        lineHeight: 1, userSelect: 'none', pointerEvents: 'none', fontWeight: 900,
-      }}>አ</div>
+      <img
+        src="/logo.png"
+        aria-hidden="true"
+        alt=""
+        style={{
+          position: 'absolute', right: 0, bottom: 0,
+          height: 110, width: 'auto', opacity: 0.07,
+          userSelect: 'none', pointerEvents: 'none',
+          mixBlendMode: 'luminosity',
+        }}
+      />
       <div style={{
         maxWidth: 1120, margin: '0 auto',
         display: 'flex', justifyContent: 'space-between',
         alignItems: 'center', flexWrap: 'wrap', gap: 24,
+        position: 'relative',
       }}>
         <div>
           <span style={{
