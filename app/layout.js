@@ -9,6 +9,9 @@ export const metadata = {
     default: 'Atlas Ethiopia — Digital Studio',
     template: '%s | Atlas Ethiopia',
   },
+  verification: {
+    google: 'V6QpVXRUr_xi-XSPHANapyyMgogeLJ-GNTQUlLCSQO4',
+  },
 
   description:
     'Atlas Ethiopia helps businesses across Ethiopia build a digital presence that is honest, crafted, and built to last. Not just a website — a reputation.',
