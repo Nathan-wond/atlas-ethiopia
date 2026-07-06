@@ -670,7 +670,32 @@ function GoalChips({ selected, onChange }) {
 function Contact() {
   const [form, setForm] = useState({ name: '', business: '', phone: '', about: '', goal: '' })
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const set = k => e => setForm(f => ({ ...f, [k]: e.target.value }))
+
+  const submit = async () => {
+    if (!form.name || !form.business || !form.phone) {
+      setError('Please fill in your name, business name, and phone number.')
+      return
+    }
+    setError('')
+    setLoading(true)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Something went wrong.')
+      setSent(true)
+    } catch (err) {
+      setError(err.message || 'Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const inputStyle = {
     fontFamily: "'Lora', serif", fontSize: '0.95rem',
@@ -780,19 +805,42 @@ function Contact() {
                 <GoalChips selected={form.goal} onChange={v => setForm(f => ({ ...f, goal: v }))} />
               </div>
 
+              {error && (
+                <p style={{
+                  fontFamily: "'Lora', serif", fontSize: '0.88rem', fontStyle: 'italic',
+                  color: '#E57373', marginBottom: 16, lineHeight: 1.6,
+                }}>{error}</p>
+              )}
+
               <button
-                onClick={() => { if (form.name && form.business && form.phone) setSent(true) }}
+                onClick={submit}
+                disabled={loading}
                 style={{
                   width: '100%', padding: '15px',
-                  background: C.gold, color: C.bg,
+                  background: loading ? C.goldDim : C.gold,
+                  color: C.bg,
                   fontFamily: "'Syne', sans-serif", fontSize: 12, fontWeight: 700,
                   letterSpacing: '0.12em', textTransform: 'uppercase',
-                  border: 'none', borderRadius: 4, cursor: 'pointer',
-                  transition: 'opacity 0.2s',
+                  border: 'none', borderRadius: 4,
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.2s',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
                 }}
-                onMouseEnter={e => e.target.style.opacity = '0.85'}
-                onMouseLeave={e => e.target.style.opacity = '1'}
-              >Request a conversation</button>
+                onMouseEnter={e => { if (!loading) e.currentTarget.style.opacity = '0.85' }}
+                onMouseLeave={e => { e.currentTarget.style.opacity = '1' }}
+              >
+                {loading ? (
+                  <>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                      style={{ animation: 'spin 0.8s linear infinite' }}>
+                      <circle cx="7" cy="7" r="5.5" stroke={C.bg} strokeWidth="1.5" strokeOpacity="0.3"/>
+                      <path d="M7 1.5A5.5 5.5 0 0 1 12.5 7" stroke={C.bg} strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                    Sending...
+                  </>
+                ) : 'Request a conversation'}
+              </button>
+              <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
 
               <p style={{
                 fontFamily: "'Lora', serif", fontSize: '0.8rem', fontStyle: 'italic',
@@ -852,21 +900,164 @@ function Footer() {
   )
 }
 
-export default function Page() {
+/* ─── LOADING SCREEN ─────────────────────────────────────── */
+function LoadingScreen({ done }) {
   return (
-    <>
-      <Nav />
-      <main>
-        <Hero />
-        <Mission />
-        <Services />
-        <Process />
-        <Work />
-        <Philosophy />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
-    </>
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 999,
+      background: C.bg,
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      opacity: done ? 0 : 1,
+      pointerEvents: done ? 'none' : 'all',
+      transition: 'opacity 0.8s cubic-bezier(.16,1,.3,1)',
+    }}>
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 28,
+        opacity: done ? 0 : 1,
+        transform: done ? 'translateY(-12px)' : 'none',
+        transition: 'opacity 0.4s ease, transform 0.4s ease',
+      }}>
+        <img
+          src="/logo.png"
+          alt="Atlas Ethiopia"
+          style={{
+            height: 120, width: 'auto',
+            animation: 'loaderPulse 1.8s ease-in-out infinite',
+          }}
+        />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+          <span style={{
+            fontFamily: "'Fraunces', serif", fontWeight: 900,
+            fontSize: 22, color: C.text, letterSpacing: '-0.03em',
+          }}>Atlas Ethiopia</span>
+          <span style={{
+            fontFamily: "'Syne', sans-serif", fontSize: 10, fontWeight: 700,
+            letterSpacing: '0.22em', textTransform: 'uppercase', color: C.gold,
+          }}>Digital Studio</span>
+        </div>
+        <div style={{
+          width: 40, height: 1, background: C.border,
+          position: 'relative', overflow: 'hidden', borderRadius: 1,
+        }}>
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: C.gold,
+            animation: 'loaderBar 1.4s ease-in-out infinite',
+          }} />
+        </div>
+      </div>
+      <style>{`
+        @keyframes loaderPulse {
+          0%, 100% { opacity: 0.7; transform: translateY(0); }
+          50%       { opacity: 1;   transform: translateY(-6px); }
+        }
+        @keyframes loaderBar {
+          0%   { transform: translateX(-100%); }
+          50%  { transform: translateX(0%); }
+          100% { transform: translateX(100%); }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+/* ─── ERROR BOUNDARY ─────────────────────────────────────── */
+import { Component } from 'react'
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false, message: '' }
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, message: error?.message || 'Unknown error' }
+  }
+
+  componentDidCatch(error, info) {
+    console.error('Atlas Ethiopia — Error caught:', error, info)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          minHeight: '100vh', background: C.bg,
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          padding: '2rem', textAlign: 'center',
+        }}>
+          <img src="/logo.png" alt="Atlas Ethiopia" style={{ height: 80, marginBottom: 32, opacity: 0.6 }} />
+          <p style={{
+            fontFamily: "'Syne', sans-serif", fontSize: 11, fontWeight: 700,
+            letterSpacing: '0.18em', textTransform: 'uppercase',
+            color: C.gold, marginBottom: 16,
+          }}>Something went wrong</p>
+          <h1 style={{
+            fontFamily: "'Fraunces', serif", fontWeight: 900,
+            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
+            color: C.text, letterSpacing: '-0.03em',
+            marginBottom: 20, lineHeight: 1.1,
+          }}>We hit an unexpected error.</h1>
+          <p style={{
+            fontFamily: "'Lora', serif", fontSize: '1rem',
+            color: C.muted, lineHeight: 1.8, maxWidth: 420, marginBottom: 40,
+          }}>
+            This is on us, not you. Try refreshing the page — if it keeps
+            happening, reach out directly and we&apos;ll sort it.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              fontFamily: "'Syne', sans-serif", fontSize: 12, fontWeight: 700,
+              letterSpacing: '0.12em', textTransform: 'uppercase',
+              color: C.bg, background: C.gold,
+              padding: '13px 28px', borderRadius: 4,
+              border: 'none', cursor: 'pointer',
+              marginBottom: 16,
+            }}
+          >Refresh the page</button>
+          <p style={{
+            fontFamily: "'Lora', serif", fontSize: '0.8rem', fontStyle: 'italic',
+            color: C.muted,
+          }}>Error: {this.state.message}</p>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
+
+/* ─── PAGE ───────────────────────────────────────────────── */
+export default function Page() {
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 1800)
+    return () => clearTimeout(timer)
+  }, [])
+
+  return (
+    <ErrorBoundary>
+      <LoadingScreen done={loaded} />
+      <div style={{
+        opacity: loaded ? 1 : 0,
+        transition: 'opacity 0.6s ease 0.2s',
+      }}>
+        <Nav />
+        <main>
+          <Hero />
+          <Mission />
+          <Services />
+          <Process />
+          <Work />
+          <Philosophy />
+          <FAQ />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </ErrorBoundary>
   )
 }
