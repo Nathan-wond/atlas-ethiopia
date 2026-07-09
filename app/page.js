@@ -67,7 +67,7 @@ function Nav() {
 
   return (
     <>
-      <nav style={{
+      <nav aria-label="Main navigation" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
         padding: '0 2.5rem',
         background: solid ? 'rgba(15,11,8,0.96)' : 'transparent',
@@ -82,7 +82,9 @@ function Nav() {
           <a href="#" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
             <img
               src="/logo.png"
-              alt="Atlas Ethiopia"
+              alt="Atlas Ethiopia Digital Studio — Web Design and Development in Addis Ababa"
+              width={48}
+              height={72}
               style={{ height: 72, width: 'auto', objectFit: 'contain', display: 'block' }}
             />
             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
@@ -171,15 +173,20 @@ function Hero() {
   }, [])
 
   return (
-    <section style={{
-      minHeight: '100vh', background: C.bg, position: 'relative',
-      display: 'flex', alignItems: 'center',
-      padding: '120px 2.5rem 80px', overflow: 'hidden',
-    }}>
+    <section
+      aria-label="Atlas Ethiopia — Premium Web Design and Development Studio in Addis Ababa, Ethiopia"
+      style={{
+        minHeight: '100vh', background: C.bg, position: 'relative',
+        display: 'flex', alignItems: 'center',
+        padding: '120px 2.5rem 80px', overflow: 'hidden',
+      }}>
       <img
         src="/logo.png"
         aria-hidden="true"
         alt=""
+        loading="eager"
+        width={600}
+        height={900}
         style={{
           position: 'absolute', right: '-6%', bottom: 0,
           height: '90%', width: 'auto', objectFit: 'contain',
@@ -216,6 +223,13 @@ function Hero() {
             Your business<br />
             <em style={{ fontStyle: 'italic', color: C.gold }}>deserves</em><br />
             to be found.
+            <span style={{
+              position: 'absolute', width: 1, height: 1,
+              padding: 0, margin: -1, overflow: 'hidden',
+              clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0,
+            }}>
+              — Web Design & Development Studio in Addis Ababa, Ethiopia
+            </span>
           </h1>
 
           <div style={{
@@ -226,9 +240,9 @@ function Hero() {
               fontFamily: "'Lora', serif", fontSize: '1.05rem',
               color: C.muted, lineHeight: 1.85, margin: 0,
             }}>
-              We help businesses across Ethiopia build a digital presence
-              that is honest, crafted, and built to last — not just a website,
-              but a reputation.
+              Atlas Ethiopia is a web design and development studio based in Addis Ababa.
+              We help businesses across Ethiopia build a professional online presence
+              that is honest, crafted, and built to last — not just a website, but a reputation.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, justifyContent: 'flex-end' }}>
               <a href="#contact" style={{
@@ -261,7 +275,7 @@ function Hero() {
 
 function Mission() {
   return (
-    <section id="mission" style={{ background: C.surface, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
+    <section id="mission" aria-label="About Atlas Ethiopia Digital Studio" style={{ background: C.surface, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
       <div style={{ maxWidth: 1120, margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }} className="ae-2col">
           <Fade>
@@ -322,25 +336,25 @@ function Mission() {
 }
 
 const SERVICES = [
-  { n: '01', title: 'Website Design\n& Development', body: 'A website that is worthy of your business. Fast, beautiful, and built to turn visitors into customers — on every screen.' },
-  { n: '02', title: 'Brand Identity', body: 'Logo, color, type, and the visual language that makes your business instantly recognizable. Built from scratch, built for you.' },
-  { n: '03', title: 'Digital Strategy', body: 'Clarity on what your website should do, who it\'s for, and how it fits into your wider business — before we design anything.' },
-  { n: '04', title: 'Ongoing Care', body: 'Your website is a living thing. We keep it fast, updated, and performing long after launch.' },
+  { n: '01', title: 'Website Design\n& Development', body: 'Custom website design and development for Ethiopian businesses. Fast, beautiful, mobile-first, and built to turn visitors into customers — on every screen.', keyword: 'Web Design & Development Ethiopia' },
+  { n: '02', title: 'Brand Identity\nDesign', body: 'Logo design, color systems, typography, and the complete visual language that makes your Ethiopian business instantly recognizable and worth remembering.', keyword: 'Brand Identity Design Ethiopia' },
+  { n: '03', title: 'Digital Strategy', body: 'Clarity on what your website should achieve, who it\'s for, and how it fits your business goals — before we design a single pixel.', keyword: 'Digital Strategy Addis Ababa' },
+  { n: '04', title: 'Ongoing Care\n& Maintenance', body: 'Your website is a living thing. We keep it fast, secure, updated, and performing long after launch — so you never have to worry about it.', keyword: 'Website Maintenance Ethiopia' },
 ]
 
 function Services() {
   return (
-    <section id="services" style={{ background: C.bg, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
+    <section id="services" aria-label="Web Design and Development Services in Ethiopia" style={{ background: C.bg, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
       <div style={{ maxWidth: 1120, margin: '0 auto' }}>
         <Fade>
-          <Eye>What we do</Eye>
+          <Eye>Web Design & Development Services — Ethiopia</Eye>
           <h2 style={{
             fontFamily: "'Fraunces', serif", fontWeight: 900,
             fontSize: 'clamp(2rem, 4vw, 3.2rem)',
             color: C.text, lineHeight: 1.1, letterSpacing: '-0.035em',
             maxWidth: '22ch', marginBottom: 72,
           }}>
-            Everything a business needs<br />
+            Everything an Ethiopian business needs<br />
             to exist online, <em style={{ color: C.gold, fontStyle: 'italic' }}>beautifully.</em>
           </h2>
         </Fade>
@@ -369,7 +383,14 @@ function Services() {
                   fontSize: '1.45rem', color: C.text,
                   letterSpacing: '-0.025em', lineHeight: 1.2,
                   marginBottom: 16, whiteSpace: 'pre-line',
-                }}>{s.title}</h3>
+                }}>
+                  {s.title}
+                  <span style={{
+                    position: 'absolute', width: 1, height: 1, padding: 0,
+                    margin: -1, overflow: 'hidden', clip: 'rect(0,0,0,0)',
+                    whiteSpace: 'nowrap', border: 0,
+                  }}> — {s.keyword}</span>
+                </h3>
                 <p style={{
                   fontFamily: "'Lora', serif", fontSize: '0.95rem',
                   color: C.muted, lineHeight: 1.8, margin: 0,
@@ -395,18 +416,18 @@ const STEPS = [
 
 function Process() {
   return (
-    <section id="process" style={{ background: C.surface, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
+    <section id="process" aria-label="Our Web Design Process in Ethiopia" style={{ background: C.surface, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
       <div style={{ maxWidth: 1120, margin: '0 auto' }}>
         <Fade>
-          <Eye>How we work</Eye>
+          <Eye>Our Web Design Process</Eye>
           <h2 style={{
             fontFamily: "'Fraunces', serif", fontWeight: 900,
             fontSize: 'clamp(2rem, 4vw, 3.2rem)',
             color: C.text, lineHeight: 1.1, letterSpacing: '-0.035em',
             maxWidth: '22ch', marginBottom: 80,
           }}>
-            Thoughtful from the<br />
-            <em style={{ color: C.gold, fontStyle: 'italic' }}>first conversation.</em>
+            How we build websites<br />
+            <em style={{ color: C.gold, fontStyle: 'italic' }}>in Ethiopia.</em>
           </h2>
         </Fade>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -456,17 +477,17 @@ const WORK = [
 
 function Work() {
   return (
-    <section id="work" style={{ background: C.bg, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
+    <section id="work" aria-label="Web Design Portfolio — Ethiopian Business Websites" style={{ background: C.bg, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
       <div style={{ maxWidth: 1120, margin: '0 auto' }}>
         <Fade>
-          <Eye>Selected work</Eye>
+          <Eye>Web Design Portfolio — Ethiopia</Eye>
           <h2 style={{
             fontFamily: "'Fraunces', serif", fontWeight: 900,
             fontSize: 'clamp(2rem, 4vw, 3.2rem)',
             color: C.text, lineHeight: 1.1, letterSpacing: '-0.035em',
             maxWidth: '26ch', marginBottom: 72,
           }}>
-            Businesses we&apos;ve helped<br />
+            Ethiopian businesses we&apos;ve helped<br />
             <em style={{ color: C.gold, fontStyle: 'italic' }}>find their voice</em> online.
           </h2>
         </Fade>
@@ -559,25 +580,25 @@ function Philosophy() {
 }
 
 const FAQS = [
-  { q: 'Do I need an existing brand or logo?',  a: 'Not at all. Many of our best projects begin with a blank page. We help you define your identity before building your site.' },
-  { q: 'How long does a project take?',          a: 'Most websites take 4 to 8 weeks from first conversation to launch. Brand identity work can add 2 to 3 weeks. We give you a clear timeline before we start.' },
-  { q: 'Will it work on mobile?',                a: 'Always. In Ethiopia, where most browsing happens on phones, mobile is the first thing we design for — not the last.' },
-  { q: 'Can I update it myself?',                a: "Yes. We build with easy-to-use content systems. You shouldn't need to call us to change a photo or update your hours." },
-  { q: 'What does it cost?',                     a: "Every business is different, so every price is different. We'd rather understand what you need first. Reach out and let's talk." },
+  { q: 'How much does a website cost in Ethiopia?',           a: "Every business is different, so every website price is different. At Atlas Ethiopia, we prefer to understand your specific needs before quoting a number. Reach out and we'll give you an honest, tailored price." },
+  { q: 'How long does web design take in Addis Ababa?',       a: 'Most website projects at Atlas Ethiopia take 4 to 8 weeks from first conversation to launch. Brand identity work can add 2 to 3 weeks. We give every client a clear timeline before we begin.' },
+  { q: 'Do I need a logo before getting a website?',          a: 'Not at all. Many of our best projects begin with a blank page. Atlas Ethiopia offers both brand identity design and website development, so we can build your complete digital presence from scratch.' },
+  { q: 'Will my website work on mobile phones in Ethiopia?',  a: 'Always. In Ethiopia, where most people browse on mobile phones, we design mobile-first — meaning your website is built for phones before anything else.' },
+  { q: 'Can Atlas Ethiopia help me get found on Google?',     a: 'Yes. Every website we build is optimized for search engines from the ground up — fast loading, mobile-friendly, and structured to help Ethiopian businesses get found on Google.' },
 ]
 
 function FAQ() {
   const [open, setOpen] = useState(null)
   return (
-    <section id="faq" style={{ background: C.bg, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
+    <section id="faq" aria-label="Frequently Asked Questions — Web Design Ethiopia" style={{ background: C.bg, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
       <div style={{ maxWidth: 760, margin: '0 auto' }}>
         <Fade>
-          <Eye>Questions</Eye>
+          <Eye>FAQ — Web Design & Development Ethiopia</Eye>
           <h2 style={{
             fontFamily: "'Fraunces', serif", fontWeight: 900,
             fontSize: 'clamp(2rem, 4vw, 3.2rem)',
             color: C.text, lineHeight: 1.1, letterSpacing: '-0.035em', marginBottom: 64,
-          }}>Things people ask us.</h2>
+          }}>Common questions about web design in Ethiopia.</h2>
         </Fade>
         {FAQS.map((f, i) => (
           <Fade key={f.q} delay={i * 0.05}>
@@ -712,7 +733,7 @@ function Contact() {
   }
 
   return (
-    <section id="contact" style={{ background: C.surface, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
+    <section id="contact" aria-label="Contact Atlas Ethiopia — Get a Website for Your Business" style={{ background: C.surface, padding: '120px 2.5rem', borderTop: `1px solid ${C.border}` }}>
       <div style={{ maxWidth: 680, margin: '0 auto' }}>
         <Fade>
           <Eye>Get in touch</Eye>
@@ -860,7 +881,7 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer style={{
+    <footer role="contentinfo" aria-label="Atlas Ethiopia Digital Studio — Footer" style={{
       background: C.bg, borderTop: `1px solid ${C.border}`,
       padding: '44px 2.5rem', position: 'relative', overflow: 'hidden',
     }}>
@@ -868,6 +889,9 @@ function Footer() {
         src="/logo.png"
         aria-hidden="true"
         alt=""
+        loading="lazy"
+        width={73}
+        height={110}
         style={{
           position: 'absolute', right: 0, bottom: 0,
           height: 110, width: 'auto', opacity: 0.07,
@@ -889,7 +913,7 @@ function Footer() {
           <span style={{
             fontFamily: "'Lora', serif", fontSize: 13,
             color: C.muted, marginLeft: 12, fontStyle: 'italic',
-          }}>— Helping Ethiopian businesses become visible online.</span>
+          }}>— Web Design & Development Studio, Addis Ababa, Ethiopia.</span>
         </div>
         <p style={{
           fontFamily: "'Syne', sans-serif", fontSize: 10, fontWeight: 700,
